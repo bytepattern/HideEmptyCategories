@@ -36,7 +36,7 @@ class CategoryCollectionLoadAfter implements \Magento\Framework\Event\ObserverIn
                 ]
             );
             $this->eventManager->dispatch(
-                'codex_hide_empty_categories_before',
+                'bp_hide_empty_categories_before',
                 [
                     'collection' => $categoryCollection,
                     'category' => $category,
@@ -55,27 +55,6 @@ class CategoryCollectionLoadAfter implements \Magento\Framework\Event\ObserverIn
      */
     protected function getTotalProductCount(\Magento\Catalog\Model\Category $category)
     {
-        /**
-         * Asif zaman code
-         */
-        //return $category->getProductCollection()->getSize();
-
-        /**
-         * Modified by Micheal
-         */
-        //return $category->getProductCollection()->addAttributeToFilter('is_discontinued', 0)->getSize();
-
-        /**
-         * Modified by Asif zaman
-         */
-        return $category->getProductCollection()
-            ->addAttributeToFilter(array(
-                array(
-                    'attribute' => 'is_discontinued',
-                    'null' => true),
-                array(
-                    'attribute' => 'is_discontinued',
-                    'eq' => '0')
-            ))->getSize();
+        return $category->getProductCollection()->getSize();
     }
 }
